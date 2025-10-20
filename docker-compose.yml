@@ -1,0 +1,34 @@
+networks:
+  exam_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+
+services:
+  exam.api:
+    image: ${DOCKER_REGISTRY-}examapi
+    container_name: exam_api
+    build:
+      context: .
+      dockerfile: Exam.Api/Dockerfile
+    environment:
+        - ConnectionStrings__PostgresqlDbConnection=Host=exam_db;Port=5432;Database=exam_food_db;Username=admin;Password=admin
+    networks:
+        - exam_network
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres:17-alpine
+    container_name: exam_db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - exam_network
+ 
