@@ -8,6 +8,7 @@ namespace Exam.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<ITokenService, TokenService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             return services;
         }

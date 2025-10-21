@@ -39,7 +39,8 @@ namespace Exam.Api.Extentions
                 options.Password.RequireNonAlphanumeric = false;
             })
             .AddRoles<IdentityRole<int>>()
-            .AddEntityFrameworkStores<ExamDbContext>();
+            .AddEntityFrameworkStores<ExamDbContext>()
+            .AddDefaultTokenProviders();
         }
 
         private static void ConfigureJwtAuthenticationAndAuthorization(IServiceCollection services, IConfiguration configuration)
